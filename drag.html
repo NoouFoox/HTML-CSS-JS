@@ -1,62 +1,84 @@
-<!DOCTYPE HTML>
-<html>
+<!DOCTYPE html>
+<html lang="zh">
 
 <head>
-    <style type="text/css">
-        #box1,
-        #box2,
-        #box3 {
-            width: 200px;
-            height: 300px;
-            border-radius: 10px;
-            border: 1px solid #333;
-            float: left;
-            margin-left: 20px;
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #div1 {
+            position: absolute;
+            width: 10rem;
+            height: 10rem;
+            background: blueviolet;
+            color: wheat;
+            text-align: center;
+            line-height: 2rem;
+            position: fixed=null;
+            ;
         }
         
-        #item1,
-        #item2,
-        #item3,
-        #item4 {
-            width: 90%;
-            margin: 0 auto;
-            border-radius: 10px;
-            height: 50px;
-            border: 1px solid #333;
-            margin-top: 10px;
-            text-align: center;
-            line-height: 50px;
+        .page {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
         }
     </style>
+
 </head>
 
 <body>
-    <div id="box1" ondragover="allowDropIn(event)" ondrop="drop(event)">
-        <div id="item1" draggable="true" ondragstart="drag(event)">item1</div>
-        <div id="item2" draggable="true" ondragstart="drag(event)">item2</div>
-        <div id="item3" draggable="true" ondragstart="drag(event)">item3</div>
-    </div>
-    <div id="box2" ondragover="allowDropIn(event)" ondrop="drop(event)">
-        <div id="item4" draggable="true" ondragstart="drag(event)">item4</div>
-    </div>
-    <div id="box3" ondragover="allowDropIn(event)" ondrop="drop(event)">
+    <div class="page">
+        <!--父容器-->
+        <div id="div1">拖动盒子</div>
+        <!--拖动DIV-->
     </div>
 </body>
-<script type="text/javascript">
-    function allowDropIn(ev) {
-        ev.preventDefault();
+<script>
+    var box = document.getElementById('div1');
+    box.onclick = function() {
+        console.log('1');
     }
-
-    function drag(ev) {
-        ev.dataTransfer.setData("Text", ev.target.id);
-    }
-
-    function drop(ev) {
-        let pattern1 = /^box/
-        var data = ev.dataTransfer.getData("Text");
-        if (pattern1.test(ev.target.id)) {
-            ev.target.appendChild(document.getElementById(data));
-            ev.preventDefault();
+    var SX,
+        SY,
+        MX,
+        MY,
+        BX,
+        BY; //各个位置变量
+    box.addEventListener('touchstart', function(e) {
+        SY = e.touches[0].clientY;
+        SX = e.touches[0].clientX;
+        BX = box.offsetLeft;
+        BY = box.offsetTop; //offsetTop与offsetLeft是div到屏幕顶部和左的距离
+    }); //触摸开始时给各变量赋值
+    box.addEventListener('touchmove', function(e) {
+        MY = e.touches[0].clientY - SY;
+        MX = e.touches[0].clientX - SX;
+        box.style.left = BX + MX + 'px';
+        box.style.top = BY + MY + 'px'; //触摸时给box的的left和top赋值使其变化
+        console.log('盒子目位置：Y值：' + box.offsetTop + ' X值:' + box.offsetLeft); //输出坐标是为了寻找合适XY值防止拖动div脱出屏幕外
+        var top = box.offsetTop;
+        var left = box.offsetLeft;
+        if (top < 0) {
+            box.style.top = 0 + 'px';
+        } else if (top > 300) {
+            box.parentNode.removeChild(box);
         }
-    }
+        if (top > 506) {
+            box.style.top = 506 + 'px';
+        }
+        if (left < 0) {
+            box.style.left = 0 + 'px';
+        } else if (left > 100) {
+            box.style.backgroundColor = 'red';
+        }
+        if (left > 202) {
+            box.style.left = 202 + 'px';
+        }
+    })
 </script>
+
+</html>
