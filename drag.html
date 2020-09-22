@@ -1,0 +1,62 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <style type="text/css">
+        #box1,
+        #box2,
+        #box3 {
+            width: 200px;
+            height: 300px;
+            border-radius: 10px;
+            border: 1px solid #333;
+            float: left;
+            margin-left: 20px;
+        }
+        
+        #item1,
+        #item2,
+        #item3,
+        #item4 {
+            width: 90%;
+            margin: 0 auto;
+            border-radius: 10px;
+            height: 50px;
+            border: 1px solid #333;
+            margin-top: 10px;
+            text-align: center;
+            line-height: 50px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="box1" ondragover="allowDropIn(event)" ondrop="drop(event)">
+        <div id="item1" draggable="true" ondragstart="drag(event)">item1</div>
+        <div id="item2" draggable="true" ondragstart="drag(event)">item2</div>
+        <div id="item3" draggable="true" ondragstart="drag(event)">item3</div>
+    </div>
+    <div id="box2" ondragover="allowDropIn(event)" ondrop="drop(event)">
+        <div id="item4" draggable="true" ondragstart="drag(event)">item4</div>
+    </div>
+    <div id="box3" ondragover="allowDropIn(event)" ondrop="drop(event)">
+    </div>
+</body>
+<script type="text/javascript">
+    function allowDropIn(ev) {
+        ev.preventDefault();
+    }
+
+    function drag(ev) {
+        ev.dataTransfer.setData("Text", ev.target.id);
+    }
+
+    function drop(ev) {
+        let pattern1 = /^box/
+        var data = ev.dataTransfer.getData("Text");
+        if (pattern1.test(ev.target.id)) {
+            ev.target.appendChild(document.getElementById(data));
+            ev.preventDefault();
+        }
+    }
+</script>
