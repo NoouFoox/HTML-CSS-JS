@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <script src="rem.js"></script>//rem750
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Document</title>
+</head>
+<style>
+    body,
+    html {
+        overflow: hidden;
+    }
+    
+    #drag1 {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 200%;
+        width: 100%;
+        background: url(img/beijing.png);//背景
+        background-size: 100% 100%;
+    }
+</style>
+
+<body>
+    <div id="drag1"></div>
+</body>
+<script>
+    var SY, MY, BY;
+    var hd1 = document.getElementById('drag1');
+    hd1.addEventListener('touchstart', function(e) {
+        MY = null;
+        SY = null;
+        BY = hd1.offsetTop;
+        SY = e.touches[0].clientY;
+        console.log(BY);
+        console.log(SY);
+        e.preventDefault()
+    });
+    hd1.addEventListener('touchmove', function(e) {
+        MY = e.touches[0].clientY - SY;
+        hd1.style.top = BY + MY + 'px';
+        console.log(BY);
+        e.preventDefault();
+        if (hd1.offsetTop > 0) {
+            hd1.style.top = 0 + 'px';
+        }
+        if (hd1.offsetTop < -600) {
+            hd1.style.top = -600 + 'px';
+        }
+    });
+</script>
+
+</html>
