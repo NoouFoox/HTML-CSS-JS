@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="rem.js"></script>
+    <title>LOADING</title>
+    <style>
+        .body,
+        html {
+            overflow: hidden;
+            background: black;
+        }
+        
+        #loading_text {
+            text-align: center;
+            position: relative;
+            font-size: 0.7rem;
+            top: 3rem;
+            color: white;
+        }
+        
+        #loadingdiv {
+            display: flex;
+            position: absolute;
+            top: 5rem;
+            left: 3rem;
+        }
+        
+        .box {
+            position: relative;
+            width: 0.3rem;
+            height: 0.3rem;
+            margin: 0.1rem;
+            background-color: white;
+            border-radius: 100%;
+            display: none;
+        }
+    </style>
+</head>
+<p id="loading_text">LOADING <span id="text">0</span>%</p>
+<div id="loadingdiv">
+    <div class="box box1"></div>
+    <div class="box box2"></div>
+    <div class="box box3"></div>
+</div>
+
+<body>
+
+</body>
+<script>
+    var text = document.getElementById('text');
+    var box = document.querySelector('.loadingdiv');
+    var b1 = document.querySelector('.box1');
+    var b2 = document.querySelector('.box2');
+    var b3 = document.querySelector('.box3');
+    var x = 0;
+    var y = 0;
+    var textloading = setInterval(function() {
+        x++;
+        text.innerHTML = x;
+        if (x == 100) {
+            clearInterval(textloading);
+        }
+    }, 30)
+    var ld = setInterval(function() {
+        if (y == 0) {
+            y = y + 1;
+            b1.style.display = 'block';
+        } else if (y == 1) {
+            y = y + 1;
+            b1.style.display = 'block';
+            b2.style.display = 'block';
+        } else if (y == 2) {
+            y = y + 1;
+            b1.style.display = 'block';
+            b2.style.display = 'block';
+            b3.style.display = 'block';
+        } else if (y == 3) {
+            y = 0;
+            b1.style.display = 'none';
+            b2.style.display = 'none';
+            b3.style.display = 'none';
+        }
+        if (x == 100) {
+            clearInterval(ld);
+        }
+    }, 200)
+</script>
+
+</html>
