@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>打字机效果</title>
+</head>
+
+<body>
+    <p class="p1"></p>
+</body>
+<script>
+    var test = document.querySelector('.p1');
+    txt = "噫吁嚱，危乎高哉！蜀道之难，难于上青天！蚕丛及鱼凫，开国何茫然！尔来四万八千岁，不与秦塞通人烟。西当太白有鸟道，可以横绝峨眉巅。";
+    arrtxt = txt.split(''); //将文本转换为数组
+    var i = 0,
+        timer = setInterval(function() {
+            i++;
+            test.innerHTML = test.innerText + arrtxt[i - 1];
+            if (i == arrtxt.length) {
+                clearInterval(timer);
+            }
+        }, 222);
+</script>
+
+</html>
